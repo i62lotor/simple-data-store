@@ -7,6 +7,7 @@ Para conseguir el objetivo se implenta una API de acceso a la información almac
 La solución planteada está pensada para proyectos relativamente pequeños, y con necesidades de consulta/edición de capas. Por el momento no se contempla la posibilidad de realizar consultas o análisis espaciales, para ello siempre es mejor usar sistemas de gestión de bases de datos espaciales y Sistemas de Información Geográfica.
 
 ## Tecnología
+- Java 8
 - [SpringBoot](https://projects.spring.io/spring-boot/)
 - [MongoDB](http://www.mongodb.org/)
 
@@ -40,6 +41,8 @@ El software incluye documentación de la api con swagger. Para poder consultarla
 ![Api-doc](simple-data-store-api-0.0.1.png)
 
 ## Datos almacenados
+Para esta versión se debe tener una instancia de MongoDB. El software usa los parámetros por defecto (test, puerto,...). Para cambiar esos parámetros modificar el fichero *application.properties*
+
 Se almacenarán datos de tipo Layer cuya especificación se corresponde con el siguiente json:
 `{
   "data": "string: datos a almacenar",
