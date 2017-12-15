@@ -44,7 +44,8 @@ El software incluye documentación de la api con swagger. Para poder consultarla
 Para esta versión se debe tener una instancia de MongoDB. El software usa los parámetros por defecto (test, puerto,...). Para cambiar esos parámetros modificar el fichero *application.properties*
 
 Se almacenarán datos de tipo Layer cuya especificación se corresponde con el siguiente json:
-`{
+```javascript
+{
   "data": "string: datos a almacenar",
   "description": "string: descripción de los datos",
   "format": "GEOJSON | GEOJSON_CSS | WKT | GML | KML | TOPO_JSON | CUSTOM_TEXT",
@@ -53,7 +54,7 @@ Se almacenarán datos de tipo Layer cuya especificación se corresponde con el s
   "name": "string: nombre de la capa (no puede quedar vacío",
   "openData": true,
   "projection": "string: proyección correspondiente a los datos"
-}`
+}```
 
 ## TODO
 Mantiendo la premisa de mantener el sistema simple, se aceptan sugerencias de todo tipo. En principio tengo en mente incluir:
