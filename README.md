@@ -3,7 +3,8 @@ Repositorio simple de datos, accesible por API REST
 
 ## Objetivo
 Disponer de un almacén de datos espaciales (o no), accesibles vía HTTP para poder explotarlos desde cualquier cliente.
-Para conseguir el objetivo se implenta una API de acceso a la información almacenada en MongoDB
+Para conseguir el objetivo se implenta una API de acceso a la información almacenada en MongoDB.
+La solución planteada está pensada para proyectos relativamente pequeños, y con necesidades de consulta/edición de capas. Por el momento no se contempla la posibilidad de realizar consultas o análisis espaciales, para ello siempre es mejor usar sistemas de gestión de bases de datos espaciales y Sistemas de Información Geográfica.
 
 ## Tecnología
 - [SpringBoot](https://projects.spring.io/spring-boot/)
@@ -35,3 +36,22 @@ Puedes ver mas opciones en la [documentación de SpringBoot](https://docs.spring
 
 ## API
 El software incluye documentación de la api con swagger. Para poder consultarla puedes acceder a la url http://deploy-url:8080/swagger-ui.html
+
+![Screenshot](https://github.com/geowe/geowe-core/blob/master/screenshot.png)
+
+## Datos almacenados
+Se almacenarán datos de tipo Layer cuya especificación se corresponde con el siguiente json:
+`{
+  "data": "string: datos a almacenar",
+  "description": "string: descripción de los datos",
+  "format": "GEOJSON | GEOJSON_CSS | WKT | GML | KML | TOPO_JSON | CUSTOM_TEXT",
+  "id": "string: identificador autoasignado (debe indicarse para actualizar o consultar)",
+  "lastUpdate": "última fecha de modificacion: por ejemplo 2017-12-15T11:20:38.987Z",
+  "name": "string: nombre de la capa (no puede quedar vacío",
+  "openData": true,
+  "projection": "string: proyección correspondiente a los datos"
+}`
+
+## TODO
+Mantiendo la premisa de mantener el sistema simple, se aceptan sugerencias de todo tipo. En principio tengo en mente incluir:
+- Granularidad en el control de acceso a nivel de usuario.
