@@ -32,7 +32,9 @@ Una vez logado se obtendrá un token en la cabecera *Authorization* para usarlo 
 Para construir el software podemos usar maven de la siguiente forma:
 `mvn clean package`
 Se generará un jar en el directorio target, el cual podemos ejecutar directamente con el siguiente comando
-`ava -jar target/simple-data-store-0.0.1-SNAPSHOT.jar`
+
+`java -jar target/simple-data-store-0.0.1-SNAPSHOT.jar`
+
 Puedes ver mas opciones en la [documentación de SpringBoot](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html)
 
 ## API
