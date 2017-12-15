@@ -56,6 +56,12 @@ Se almacenarán datos de tipo Layer cuya especificación se corresponde con el s
   "projection": "string: proyección correspondiente a los datos"
 }
 ```
+## Normas de contribución
+Solo pido por favor que se sigua el patrón: **KISS** Pensad que lo va a revisar @i62lotor y a veces es un poco "tikis-mikis".
+
+- Código fuente: podeis enviar vuestras PR, y encantado las incorporo, si al menos siguen un mínimo de limpieza de código, y algún test unitario.
+- Testing: me parecen fundamentales. Si quieres hacer pruebas de rendimiento, estabilidad, carga, etc. ¡Genial!
+- Documentación: intentaré ir completando la wiki. ¿Quieres ayudarme?
 
 ## TODO
 Mantiendo la premisa de mantener el sistema simple, se aceptan sugerencias de todo tipo. En principio tengo en mente incluir:
