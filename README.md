@@ -37,7 +37,7 @@ Puedes ver mas opciones en la [documentación de SpringBoot](https://docs.spring
 ## API
 El software incluye documentación de la api con swagger. Para poder consultarla puedes acceder a la url http://deploy-url:8080/swagger-ui.html
 
-![Screenshot](https://github.com/geowe/geowe-core/blob/master/screenshot.png)
+![Api-doc](simple-data-store-api-0.0.1.png)
 
 ## Datos almacenados
 Se almacenarán datos de tipo Layer cuya especificación se corresponde con el siguiente json:
