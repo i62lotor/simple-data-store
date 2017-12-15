@@ -23,3 +23,15 @@ El acceso a la API (salvo algunos recursos de acceso libre) requiere de un proce
 
 `{"login":"sds-Admin","password": "default-pw"}`
 
+Una vez logado se obtendrá un token en la cabecera *Authorization* para usarlo en el resto de peticiones HTTTP.
+`Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZHMtQWRtaW4iLCJleHAiOjE1MTQxOTg4Mzl9.Fxn4Mg3BMzK5ZoHXL8Hpfbc02gEZy2N7xtOo3zn6iq_YRI3xtgDAphBmFusxmvffz3PYuDh_rkW-oCnVIQKkHQ`
+
+## Construir el software
+Para construir el software podemos usar maven de la siguiente forma:
+`mvn clean package`
+Se generará un jar en el directorio target, el cual podemos ejecutar directamente con el siguiente comando
+`ava -jar target/simple-data-store-0.0.1-SNAPSHOT.jar`
+Puedes ver mas opciones en la [documentación de SpringBoot](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html)
+
+## API
+El software incluye documentación de la api con swagger. Para poder consultarla puedes acceder a la url http://deploy-url:8080/swagger-ui.html
