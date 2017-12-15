@@ -54,8 +54,14 @@ Se almacenarán datos de tipo Layer cuya especificación se corresponde con el s
   "name": "string: nombre de la capa (no puede quedar vacío",
   "openData": true,
   "projection": "string: proyección correspondiente a los datos"
-}```
+}
+```
 
 ## TODO
 Mantiendo la premisa de mantener el sistema simple, se aceptan sugerencias de todo tipo. En principio tengo en mente incluir:
 - Granularidad en el control de acceso a nivel de usuario.
+- Implementar test de integración
+- Realizar test de estabilidad y carga
+- Generar documentación de uso y api.
+- Generar una versión con MongoDB embebido
+
