@@ -3,7 +3,7 @@ Repositorio simple de datos, accesible por API REST
 
 ## Objetivo
 Disponer de un almacén de datos espaciales (o no), accesibles vía HTTP para poder explotarlos desde cualquier cliente.
-Para conseguir el objetivo se implenta una API de acceso a la información almacenada en MongoDB.
+Para conseguir el objetivo se implementa una API de acceso a la información almacenada en MongoDB.
 La solución planteada está pensada para proyectos relativamente pequeños, y con necesidades de consulta/edición de capas. Por el momento no se contempla la posibilidad de realizar consultas o análisis espaciales, para ello siempre es mejor usar sistemas de gestión de bases de datos espaciales y Sistemas de Información Geográfica.
 
 ## Tecnología
