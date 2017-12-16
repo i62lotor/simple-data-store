@@ -66,10 +66,10 @@ Solo pido por favor que se sigua el patrón: **KISS** Pensad que lo va a revisar
 - Documentación: intentaré ir completando la wiki. ¿Quieres ayudarme?
 
 ## TODO
-Mantiendo la premisa de mantener el sistema simple, se aceptan sugerencias de todo tipo. En principio tengo en mente incluir:
-- Granularidad en el control de acceso a nivel de usuario.
-- Implementar test de integración
-- Realizar test de estabilidad y carga
+Bajo la premisa de mantener el sistema simple, se aceptan sugerencias de todo tipo. En principio tengo en mente incluir:
+- Granularidad en el control de acceso a los recursos (capas) a nivel de usuario.
+- Implementar test de integración.
+- Realizar test de estabilidad y carga.
 - Generar documentación de uso y api.
-- Generar una versión con MongoDB embebido
+- Generar una versión con MongoDB embebido.
 
