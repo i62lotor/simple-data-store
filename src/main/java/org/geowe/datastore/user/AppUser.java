@@ -1,5 +1,6 @@
 package org.geowe.datastore.user;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -21,7 +22,7 @@ public class AppUser {
 	@NotNull
 	private Role role;
 	
-	private Set<GrantedResource> grantedResources;
+	private Set<GrantedResource> grantedResources = new HashSet<>();
 	
 	public AppUser() {
 		super();
@@ -66,6 +67,14 @@ public class AppUser {
 
 	public void setGrantedResources(Set<GrantedResource> grantedResources) {
 		this.grantedResources = grantedResources;
+	}
+	
+	public void setGrantAccess(GrantedResource grantedResource){
+		this.grantedResources.add(grantedResource);
+	}
+	
+	public void removeGrantAccess(GrantedResource grantedResource) {
+		this.grantedResources.remove(grantedResource);
 	}
 	
 	@Override

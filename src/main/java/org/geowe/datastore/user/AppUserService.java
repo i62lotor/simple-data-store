@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.apache.log4j.Logger;
+import org.geowe.datastore.layer.LayerRepository;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,13 +25,16 @@ public class AppUserService {
 	
 	private final AppUserRepository appUserRepository;
 	
+	private final LayerRepository layerRepository;
+	
 	private final PasswordEncoder passwordEncoder;
 	
 	public AppUserService(AppUserRepository appUserRepository,
-			PasswordEncoder passwordEncoder) {
+			PasswordEncoder passwordEncoder, LayerRepository layerRepository) {
 		super();
 		this.appUserRepository = appUserRepository;
 		this.passwordEncoder = passwordEncoder;
+		this.layerRepository = layerRepository;
 	}
 	
 	@PostConstruct
@@ -78,5 +82,41 @@ public class AppUserService {
 			isGranted = grantedResources.stream().anyMatch(gr -> gr.getResourdeId().equals(resourceId));
 		}
 		return isGranted;
+	}
+
+	public AppUser grantAccessTo(String login, GrantedResource grantedResource) {
+		Optional<AppUser> appUserOpt = null;
+		if (existsUser(login) && existsResource(grantedResource.getResourdeId())) {
+			appUserOpt = get(login);
+			appUserOpt.get().setGrantAccess(grantedResource);	
+		}
+		
+		return appUserRepository.save(appUserOpt.get());
+	}
+
+	public AppUser removeGrantAccessTo(String login, GrantedResource grantedResource) {
+		Optional<AppUser> appUserOpt = null;
+		if (existsUser(login) && existsResource(grantedResource.getResourdeId())) {
+			appUserOpt = get(login);
+			appUserOpt.get().removeGrantAccess(grantedResource);	
+		}
+		
+		return appUserRepository.save(appUserOpt.get());
+	}
+	
+	private boolean existsUser(String login){
+		if(!appUserRepository.exists(login)){
+			throw new IllegalArgumentException(
+					"AppUser with username " + login + " not exists");
+		}
+		return true;
+	}
+	
+	private boolean existsResource(String resourceId){
+		if (!layerRepository.exists(resourceId)) {
+			throw new IllegalArgumentException(
+					"Resource id " + resourceId + " not exists");
+		}
+		return true;
 	}
 }
