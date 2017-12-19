@@ -2,6 +2,7 @@ package org.geowe.datastore.user;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
@@ -68,5 +69,14 @@ public class AppUserService {
 					"AppUser with username " + login + " not exists");
 		}
 		appUserRepository.delete(login);
+	}
+	
+	public boolean isGranted(String userName, String resourceId){
+		Set<GrantedResource> grantedResources = get(userName).orElse(new AppUser()).getGrantedResources();
+		boolean isGranted = false;
+		if(grantedResources!= null && !grantedResources.isEmpty()){
+			isGranted = grantedResources.stream().anyMatch(gr -> gr.getResourdeId().equals(resourceId));
+		}
+		return isGranted;
 	}
 }

@@ -33,6 +33,7 @@ public class LayerController {
 		this.layerService = layerService;
 	}
 
+	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.isGranted(principal.username, #id)")
 	@GetMapping(value = "/layers/{id}")
 	public HttpEntity<Layer> get(@PathVariable("id") String id) {
 		ResponseEntity<Layer> response = null;

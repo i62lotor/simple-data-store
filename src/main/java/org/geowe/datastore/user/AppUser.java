@@ -1,5 +1,7 @@
 package org.geowe.datastore.user;
 
+import java.util.Set;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -18,6 +20,8 @@ public class AppUser {
 	
 	@NotNull
 	private Role role;
+	
+	private Set<GrantedResource> grantedResources;
 	
 	public AppUser() {
 		super();
@@ -56,6 +60,14 @@ public class AppUser {
 		this.role = role;
 	}
 
+	public Set<GrantedResource> getGrantedResources() {
+		return grantedResources;
+	}
+
+	public void setGrantedResources(Set<GrantedResource> grantedResources) {
+		this.grantedResources = grantedResources;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,8 +95,7 @@ public class AppUser {
 
 	@Override
 	public String toString() {
-		return String.format(
-                "User[Login='%s', Role='%s']",
-                login, role.getName());
-    }
+		return "AppUser [login=" + login + ", role=" + role + ", grantedResources=" + grantedResources + "]";
+	}
+
 }
