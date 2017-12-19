@@ -12,7 +12,7 @@ La solución planteada está pensada para proyectos relativamente pequeños, y c
 - [MongoDB](http://www.mongodb.org/)
 
 ## API de acceso restringido
-El acceso a la API require **autenticación**, así mismo el acceso a ciertas operaciones requiere **autorización**. Para esta primera versión la autorización se basa en roles.
+El acceso a la API require **autenticación**, así mismo el acceso a ciertas operaciones requiere **autorización**. ~~Para esta primera versión la autorización se basa en roles~~. A partir de la versin 0.1.0 el acceso a los recursos puede ser establecido a nivel de usuario.
 
 ### Roles
 Existen 3 roles:
@@ -40,7 +40,7 @@ Puedes ver mas opciones en la [documentación de SpringBoot](https://docs.spring
 ## API
 El software incluye documentación de la api con swagger. Para poder consultarla puedes acceder a la url http://deploy-url:8080/swagger-ui.html
 
-![Api-doc](simple-data-store-api-0.0.1.png)
+![Api-doc](simple-data-store-api-0.1.0.png)
 
 ## Datos almacenados
 Para esta versión se debe tener una instancia de MongoDB. El software usa los parámetros por defecto (test, puerto,...). Para cambiar esos parámetros modificar el fichero *application.properties*
@@ -67,7 +67,7 @@ Solo pido por favor que se sigua el patrón: **KISS** Pensad que lo va a revisar
 
 ## TODO
 Bajo la premisa de mantener el sistema simple, se aceptan sugerencias de todo tipo. En principio tengo en mente incluir:
-- Granularidad en el control de acceso a los recursos (capas) a nivel de usuario.
+- ~~Granularidad en el control de acceso a los recursos (capas) a nivel de usuario.~~ Implementado en versin 0.1.0.
 - Implementar test de integración.
 - Realizar test de estabilidad y carga.
 - Generar documentación de uso y api.
