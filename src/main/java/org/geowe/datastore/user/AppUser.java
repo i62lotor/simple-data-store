@@ -77,6 +77,10 @@ public class AppUser {
 		this.grantedResources.remove(grantedResource);
 	}
 	
+	public void removeGrantAccess(String resourceid) {
+		this.grantedResources.removeIf(ga -> ga.getResourdeId().equals(resourceid));
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

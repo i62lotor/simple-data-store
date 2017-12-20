@@ -94,11 +94,11 @@ public class AppUserService {
 		return appUserRepository.save(appUserOpt.get());
 	}
 
-	public AppUser removeGrantAccessTo(String login, GrantedResource grantedResource) {
+	public AppUser removeGrantAccessTo(String login, String resourceId) {
 		Optional<AppUser> appUserOpt = null;
-		if (existsUser(login) && existsResource(grantedResource.getResourdeId())) {
+		if (existsUser(login)) {
 			appUserOpt = get(login);
-			appUserOpt.get().removeGrantAccess(grantedResource);	
+			appUserOpt.get().removeGrantAccess(resourceId);	
 		}
 		
 		return appUserRepository.save(appUserOpt.get());

@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,9 +16,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
+	private static final Logger logger = Logger.getLogger(JWTAuthorizationFilter.class);
+	
 	private final UserDetailsService userDetailsService;
 
 	public JWTAuthorizationFilter(AuthenticationManager authManager, UserDetailsService userDetailsService) {
@@ -40,21 +44,28 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 		final String token = request.getHeader(SecurityConstants.HEADER_STRING);
-		if (token != null) {
-			// parse the token.
-			final String user = Jwts.parser().setSigningKey(SecurityConstants.SECRET)
-					.parseClaimsJws(token.replace(SecurityConstants.TOKEN_PREFIX, "")).getBody().getSubject();
+		if(token == null){
+			return null;	
+		}
+		return parseTokenHeader(token);
+		
+	}
+	
+	private UsernamePasswordAuthenticationToken parseTokenHeader(String tokenHeader){
+		UsernamePasswordAuthenticationToken authentication = null;
+		try {
+			String user = Jwts.parser().setSigningKey(SecurityConstants.SECRET)
+					.parseClaimsJws(tokenHeader.replace(SecurityConstants.TOKEN_PREFIX, "")).getBody().getSubject();
 			if (user != null) {
 				final UserDetails userDetails = userDetailsService.loadUserByUsername(user);
 
-				final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+				authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, userDetails.getPassword(), userDetails.getAuthorities());
-				return authentication;
-
 			}
-			return null;
+		} catch (MalformedJwtException e) {
+			logger.warn("Malformed Jwt token. Can not parse: "+tokenHeader);
 		}
-		return null;
+		return authentication;
 	}
 
 }

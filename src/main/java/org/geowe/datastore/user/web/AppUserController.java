@@ -81,10 +81,10 @@ public class AppUserController {
 	}
 	
 	@PreAuthorize("hasRole('STORE_ADMIN')")
-	@DeleteMapping(path = "/appUsers/{id}/granted-resource")
+	@DeleteMapping(path = "/appUsers/{id}/granted-resource/{resourceId}")
 	public HttpEntity<AppUser> removeGrantResouceAccess(@PathVariable("id") String login, 
-			@RequestBody @Valid GrantedResource grantedResource) {
-		final AppUser user = appUserService.removeGrantAccessTo(login, grantedResource);
+			@PathVariable("resourceId") String resourceId) {
+		final AppUser user = appUserService.removeGrantAccessTo(login, resourceId);
 		user.setPassword("");
 		return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
 	}
