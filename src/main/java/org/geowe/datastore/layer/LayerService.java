@@ -10,10 +10,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 @Service
-@Validated
 public class LayerService {
 
 	
@@ -37,7 +35,7 @@ public class LayerService {
 	}
 	
 	public Layer create(@Valid Layer layer) {
-		if (layerRepository.exists(layer.getId())) {
+		if (layer.getId() != null && layerRepository.exists(layer.getId())) {
 			throw new IllegalArgumentException("Layer with id " +  layer.getId()+ " already exists, try update!");
 		}
 		updateLastUpdate(layer);
