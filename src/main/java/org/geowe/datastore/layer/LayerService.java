@@ -34,6 +34,10 @@ public class LayerService {
 		return layerRepository.findByOpenData(true, pageable);
 	}
 	
+	public Page<Layer> getByLayerName(String layerName, Pageable pageable) {
+		return layerRepository.findByName(layerName, pageable);
+	}
+	
 	public Layer create(@Valid Layer layer) {
 		layer.setId(null);
 		updateLastUpdate(layer);

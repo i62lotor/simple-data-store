@@ -6,7 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface LayerRepository extends PagingAndSortingRepository<Layer, String> {
 	
-	Layer findByName(String name);
+	Page<Layer> findByName(String name, Pageable pageable);
 	
 	Page<Layer> findByOpenData(boolean openData, Pageable pageable);
 

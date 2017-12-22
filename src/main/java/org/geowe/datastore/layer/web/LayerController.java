@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -90,8 +91,15 @@ public class LayerController {
 
 	@PreAuthorize("hasRole('STORE_ADMIN') || hasRole('DATA_MANAGER')")
 	@GetMapping(path = "/layers")
-	public ResponseEntity<Page<Layer>> get(Pageable pageable) {
-		final Page<Layer> page = layerService.get(pageable);
+	public ResponseEntity<Page<Layer>> get(@RequestParam(name = "name", required = false) String layerName,
+			Pageable pageable) {
+
+		Page<Layer> page = null;
+		if (layerName != null) {
+			page = layerService.getByLayerName(layerName, pageable);
+		} else {
+			page = layerService.get(pageable);
+		}
 		return new ResponseEntity<Page<Layer>>((page), HttpStatus.OK);
 	}
 	
@@ -101,7 +109,7 @@ public class LayerController {
 		return new ResponseEntity<Page<Layer>>((page), HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.hasWritePermission(principal.username, #layer)")
+	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.hasWritePermission(principal.username, #layer.id)")
 	@PostMapping(path = "/layers")
 	public HttpEntity<Layer> create(@RequestBody @Valid Layer layer) {
 		return new ResponseEntity<>(layerService.create(layer), HttpStatus.CREATED);

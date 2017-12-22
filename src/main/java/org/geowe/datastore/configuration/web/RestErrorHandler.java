@@ -30,15 +30,6 @@ public class RestErrorHandler {
 		return response;
 	}
 
-//	@ExceptionHandler(IllegalArgumentException.class)
-//	@ResponseStatus(HttpStatus.CONFLICT)
-//	@ResponseBody
-//	public Map<String, Object> processResourceAlreadyExists(HttpServletRequest req, Exception ex) {
-//		final Map<String, Object> response = getErrorResponse(req, ex);
-//		return response;
-//	}
-
-	
 
 	private Map<String, Object> getErrorResponse(HttpServletRequest req, Exception ex) {
 		final Map<String, Object> response = new HashMap<>();

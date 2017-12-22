@@ -73,9 +73,9 @@ public class AppUserService {
 		appUserRepository.delete(login);
 	}
 
-	public boolean hasWritePermisson(String userName, Layer layer) {
+	public boolean hasWritePermission(String userName, String layerId) {
 		return isGranted(userName,
-				new GrantedResource(layer.getId(), GrantedResource.AccessGrantedType.WRITE));
+				new GrantedResource(layerId, GrantedResource.AccessGrantedType.WRITE));
 	}
 
 	public boolean hasReadPermission(String userName, String resourceId) {
@@ -84,10 +84,12 @@ public class AppUserService {
 	}
 
 	private boolean isGranted(String userName, GrantedResource grantedResource) {
-		Set<GrantedResource> grantedResources = get(userName).orElse(new AppUser()).getGrantedResources();
 		boolean isGranted = false;
-		if (grantedResources != null && !grantedResources.isEmpty()) {
-			isGranted = grantedResources.stream().anyMatch(gr -> (gr.equals(grantedResource)));
+		if (existsResource(grantedResource.getResourdeId())) {
+			Set<GrantedResource> grantedResources = get(userName).orElse(new AppUser()).getGrantedResources();
+			if (grantedResources != null && !grantedResources.isEmpty()) {
+				isGranted = grantedResources.stream().anyMatch(gr -> (gr.equals(grantedResource)));
+			}
 		}
 		return isGranted;
 	}
