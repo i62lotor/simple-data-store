@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 public class Layer {
 
 	@Id
+	@NotEmpty
 	private String id;
 	
 	@NotEmpty

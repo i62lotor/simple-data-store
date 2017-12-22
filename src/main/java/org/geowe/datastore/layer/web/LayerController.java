@@ -33,7 +33,7 @@ public class LayerController {
 		this.layerService = layerService;
 	}
 
-	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.isGranted(principal.username, #id)")
+	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.hasReadPermission(principal.username, #id)")
 	@GetMapping(value = "/layers/{id}")
 	public HttpEntity<Layer> get(@PathVariable("id") String id) {
 		ResponseEntity<Layer> response = null;
@@ -47,6 +47,7 @@ public class LayerController {
 		return response;
 	}
 	
+	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.hasReadPermission(principal.username, #id)")
 	@GetMapping(value = "/layers/{id}/data")
 	public HttpEntity<String> getLayerData(@PathVariable("id") String id) {
 		ResponseEntity<String> response = null;
@@ -100,7 +101,7 @@ public class LayerController {
 		return new ResponseEntity<Page<Layer>>((page), HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN')")
+	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.hasWritePermission(principal.username, #layer)")
 	@PostMapping(path = "/layers")
 	public HttpEntity<Layer> create(@RequestBody @Valid Layer layer) {
 		return new ResponseEntity<>(layerService.create(layer), HttpStatus.CREATED);
