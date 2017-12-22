@@ -35,11 +35,7 @@ public class LayerService {
 	}
 	
 	public Layer create(@Valid Layer layer) {
-		if (layer.getId() != null && layerRepository.exists(layer.getId())) {
-			layer.setId(null);
-			//TODO: Always create a new resource
-			//throw new IllegalArgumentException("Layer with id " +  layer.getId()+ " already exists, try update!");
-		}
+		layer.setId(null);
 		updateLastUpdate(layer);
 		return layerRepository.save(layer);
 	}
