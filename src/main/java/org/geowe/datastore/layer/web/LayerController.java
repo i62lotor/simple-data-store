@@ -118,7 +118,7 @@ public class LayerController {
 	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN')")
 	@PutMapping(path = "/layers")
 	public HttpEntity<Layer> update(@RequestBody @Valid Layer layer) {
-		return new ResponseEntity<>(layerService.update(layer), HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(layerService.update(layer), HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN')")
