@@ -19,12 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class LayerController {
 
 	private final LayerService layerService;
@@ -35,7 +33,7 @@ public class LayerController {
 	}
 
 	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.hasReadPermission(principal.username, #id)")
-	@GetMapping(value = "/layers/{id}")
+	@GetMapping(value = "/layers/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public HttpEntity<Layer> get(@PathVariable("id") String id) {
 		ResponseEntity<Layer> response = null;
 
@@ -47,9 +45,9 @@ public class LayerController {
 		}
 		return response;
 	}
-	
+
 	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.hasReadPermission(principal.username, #id)")
-	@GetMapping(value = "/layers/{id}/data")
+	@GetMapping(value = "/layers/{id}/data", produces = MediaType.TEXT_PLAIN_VALUE)
 	public HttpEntity<String> getLayerData(@PathVariable("id") String id) {
 		ResponseEntity<String> response = null;
 
@@ -62,8 +60,8 @@ public class LayerController {
 
 		return response;
 	}
-	
-	@GetMapping(value = "/opendata/layers/{id}")
+
+	@GetMapping(value = "/opendata/layers/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public HttpEntity<Layer> getOpenData(@PathVariable("id") String id) {
 		ResponseEntity<Layer> response = null;
 
@@ -75,8 +73,8 @@ public class LayerController {
 		}
 		return response;
 	}
-	
-	@GetMapping(value = "/opendata/layers/{id}/data")
+
+	@GetMapping(value = "/opendata/layers/{id}/data", produces = MediaType.TEXT_PLAIN_VALUE)
 	public HttpEntity<String> getOpenDataLayerData(@PathVariable("id") String id) {
 		ResponseEntity<String> response = null;
 
@@ -90,7 +88,7 @@ public class LayerController {
 	}
 
 	@PreAuthorize("hasRole('STORE_ADMIN') || hasRole('DATA_MANAGER')")
-	@GetMapping(path = "/layers")
+	@GetMapping(path = "/layers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Page<Layer>> get(@RequestParam(name = "name", required = false) String layerName,
 			Pageable pageable) {
 
@@ -102,21 +100,21 @@ public class LayerController {
 		}
 		return new ResponseEntity<Page<Layer>>((page), HttpStatus.OK);
 	}
-	
-	@GetMapping(path = "/opendata/layers")
+
+	@GetMapping(path = "/opendata/layers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Page<Layer>> getOpenData(Pageable pageable) {
 		final Page<Layer> page = layerService.getOpenData(pageable);
 		return new ResponseEntity<Page<Layer>>((page), HttpStatus.OK);
 	}
 
 	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN') || @appUserService.hasWritePermission(principal.username, #layer.id)")
-	@PostMapping(path = "/layers")
+	@PostMapping(path = "/layers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<Layer> create(@RequestBody @Valid Layer layer) {
 		return new ResponseEntity<>(layerService.create(layer), HttpStatus.CREATED);
 	}
-	
+
 	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN')")
-	@PutMapping(path = "/layers")
+	@PutMapping(path = "/layers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public HttpEntity<Layer> update(@RequestBody @Valid Layer layer) {
 		return new ResponseEntity<>(layerService.update(layer), HttpStatus.OK);
 	}
