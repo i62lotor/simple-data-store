@@ -121,11 +121,12 @@ public class LayerController {
 		return new ResponseEntity<>(layerService.update(layer), HttpStatus.OK);
 	}
 
+	@SuppressWarnings("rawtypes")
 	@PreAuthorize("hasRole('DATA_MANAGER') || hasRole('STORE_ADMIN')")
 	@DeleteMapping(path = "/layers/{id}")
-	public HttpEntity<Layer> delete(@PathVariable("id") String id) {
+	public HttpEntity delete(@PathVariable("id") String id) {
 		layerService.delete(id);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 }
