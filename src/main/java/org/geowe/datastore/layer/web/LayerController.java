@@ -105,6 +105,7 @@ public class LayerController {
 	@PreAuthorize("hasRole('STORE_ADMIN') || hasRole('DATA_MANAGER')")
 	@GetMapping(path = "/layers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Page<Layer>> get(@RequestParam(name = "name", required = false) String layerName,
+			@RequestParam(name = "only-metadata", defaultValue = "true") boolean onlyMetadata,
 			Pageable pageable) {
 
 		Page<Layer> page = null;
@@ -113,12 +114,24 @@ public class LayerController {
 		} else {
 			page = layerService.get(pageable);
 		}
+		
+		if(onlyMetadata){
+			page.getContent().parallelStream().forEach(layer -> layer.setData(""));
+		}
 		return new ResponseEntity<Page<Layer>>((page), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/opendata/layers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Page<Layer>> getOpenData(Pageable pageable) {
+	public ResponseEntity<Page<Layer>> getOpenData(@RequestParam(name = "only-metadata", defaultValue = "true") boolean onlyMetadata,
+			Pageable pageable) {
+		
 		final Page<Layer> page = layerService.getOpenData(pageable);
+		
+		if(onlyMetadata){
+			page.getContent().parallelStream().forEach(layer -> layer.setData(""));
+		}
+		
+		
 		return new ResponseEntity<Page<Layer>>((page), HttpStatus.OK);
 	}
 
