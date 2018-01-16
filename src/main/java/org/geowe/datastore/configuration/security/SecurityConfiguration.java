@@ -15,6 +15,8 @@
  ******************************************************************************/
 package org.geowe.datastore.configuration.security;
 
+import java.util.Arrays;
+
 import org.geowe.datastore.user.AppUserRepository;
 import org.geowe.datastore.user.security.SdsUserDetailsService;
 import org.springframework.context.annotation.Bean;
@@ -94,8 +96,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
+		
+		CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+		configuration.setExposedHeaders(Arrays.asList("Authorization"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		source.registerCorsConfiguration("/**", configuration );
+		
 		return source;
 	}
 }
